@@ -10,7 +10,7 @@ import (
 func main() {
 	router := gin.Default()
 	// Production
-	router.Use(static.Serve("/", static.LocalFile("./ui/build", true)))
+	router.Use(static.Serve("/", static.LocalFile("./build", true)))
 
 	api := router.Group("/api")
 	api.GET("/", func(c *gin.Context) {
