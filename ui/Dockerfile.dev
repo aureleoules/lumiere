@@ -5,5 +5,5 @@ COPY . .
 
 RUN yarn
 
-ENTRYPOINT ["yarn", "start"]
 EXPOSE 3000
+ENTRYPOINT ["yarn"]

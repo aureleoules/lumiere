@@ -1,0 +1,24 @@
+version: "3.1"
+services:
+    lumiere_ui:
+        container_name: "lumiere_ui"
+        build: 
+            dockerfile: Dockerfile.dev
+            context: ./ui
+        working_dir: /app
+        ports:
+            - 3000:3000
+        volumes:
+            - ./ui:/app
+        command: start
+        stdin_open: true
+    lumiere_core:
+        container_name: "lumiere_core"
+        build:
+            dockerfile: ./Dockerfile.dev
+            context: .
+        ports:
+            - 8000:8000
+        volumes:
+            - .:/app
+        
