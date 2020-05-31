@@ -1,0 +1,9 @@
+FROM golang:latest
+
+WORKDIR /app
+COPY . .
+
+RUN go get github.com/githubnemo/CompileDaemon
+
+ENTRYPOINT CompileDaemon --build="go build -o lumiere" --command=./lumiere
+EXPOSE 8000
