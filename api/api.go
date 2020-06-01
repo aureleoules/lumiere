@@ -11,7 +11,7 @@ var api *gin.RouterGroup
 func Listen(port string) {
 	router := gin.Default()
 	// Production
-	router.Use(static.Serve("/", static.LocalFile("../build", true)))
+	router.Use(static.Serve("/", static.LocalFile("build", true)))
 	api = router.Group("/api")
 	api.GET("/", func(c *gin.Context) {
 		c.JSON(200, "o")
