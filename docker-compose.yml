@@ -5,3 +5,23 @@ services:
         build: .
         ports:
             - 8000:8000
+        volumes:
+            - ./certs:/certs
+        env_file:
+            - .env
+        links:
+            - btcd
+    btcd:
+        container_name: "btcd"
+        build:
+            dockerfile: ./Dockerfile.btcd
+            context: .
+        volumes:
+            - ./data:/root/.btcd
+            - ./certs:/certs
+        ports:
+            - 127.0.0.1:18334:18334
+            - 18333:18333
+        env_file:
+            - .env
+        restart: always

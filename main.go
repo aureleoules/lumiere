@@ -1,23 +1,30 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
-	"github.com/gin-gonic/contrib/static"
-	"github.com/gin-gonic/gin"
+	"github.com/aureleoules/lumiere/api"
+	"github.com/aureleoules/lumiere/rpc"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
+func init() {
+	// Add file line numbers to logs
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	// Initialize ZAP globally
+	config := zap.NewDevelopmentConfig()
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, _ := config.Build()
+	zap.ReplaceGlobals(logger)
+}
+
 func main() {
-	router := gin.Default()
-	// Production
-	router.Use(static.Serve("/", static.LocalFile("./build", true)))
+	err := rpc.Init()
+	if err != nil {
+		zap.S().Panic(err)
+	}
 
-	api := router.Group("/api")
-	api.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "xd",
-		})
-	})
-
-	router.Run(":8000")
+	api.Listen("8000")
 }
