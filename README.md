@@ -2,41 +2,76 @@
 Simple Bitcoin block explorer
 
 ## Install
+Here is the process to install lumière.
 
-### BTCD
+### Already have a BTCD node?
 
-```
-$ docker build -f Dockerfile.btcd -t btcd .
-$ docker run -it \ 
-    --name btc \
-    -v $PWD/certs:/certs \
-    -v $PWD/data:/root/.btcd \
-    -e RPC_USER=user
-    -e RPC_PASS=pass
-    btcd
-```
+If you already have a btcd node running, make sure it has the `--txindex` and `--addrindex` parameters.  
 
-### Lumière
+Create a `.env` file from the `.env.sample` template. Checkout [Environment Variables](#environment-variables) for more informations.
 
+Make sure to create a volume containing TLS certificates to connect to your node.
 
 ```bash
-$ docker build -t lumiere .
-$ docker run -itd --name lumiere -p 8000:8000 lumiere
+$ docker volume create btcd_certs
 ```
 
-or
+Now run the app.
 
 ```bash
-$ docker-compose up -d
+$ docker-compose up
+```
+
+### Need a new BTCD node?
+
+Create a `.env` file from the `.env.sample` template.  
+Leave the HOST variable as `btcd`.
+
+Checkout [Environment Variables](#environment-variables) for more informations.
+
+Make sure to create a volume containing the chain data and a volume containing TLS certificates.
+
+```bash
+$ docker volume create btcd_data
+$ docker volume create btcd_certs
+```
+
+Now run the app.
+
+```
+$ docker-compose -f docker-compose.btcd.yml up
 ```
 
 ## Development
+
+Copy `.env.sample` to `.env`.
+
+```bash
+$ cp .env.sample .env
+```
+
+Make sure to create a volume containing the chain data and a volume containing TLS certificates.
+
+```bash
+$ docker volume create btcd_data
+$ docker volume create btcd_certs
+```
+
+Now run the development environment.
 
 ```bash
 $ docker-compose -f docker-compose.dev.yml up
 ```
 
-This will start a BTCD node on the test network, the Go api and the UI.
+This will start a BTCD node on the test network, the Go API and the UI.
 
 The API is available at [localhost:8000/api]().  
 The UI is available at [localhost:3000]().  
+
+## Environment variables
+* RPC_USER          # RPC username
+* RPC_PASS          # RPC password
+* RPC_HOST          # RPC host or ip
+* RPC_PORT          # RPC port (optional)
+* NETWORK           # Bitcoin network (mainnet/testnet)
+* CERTS_LOCATION    # Location of TLS certificates (optional) 

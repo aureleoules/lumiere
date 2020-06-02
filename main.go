@@ -24,6 +24,7 @@ func main() {
 	err := rpc.Init()
 	if err != nil {
 		zap.S().Panic(err)
+		return
 	}
 
 	api.Listen("8000")

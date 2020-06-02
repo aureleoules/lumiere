@@ -1,31 +1,14 @@
 version: "3.8"
 services:
-    lumiere_ui:
-        container_name: "lumiere_ui"
-        build: 
-            dockerfile: Dockerfile.dev
-            context: ./ui
-        working_dir: /app
-        ports:
-            - 3000:3000
-        volumes:
-            - ./ui:/app
-        command: start
-        stdin_open: true
-    lumiere_core:
-        container_name: "lumiere_core"
+    lumiere:
+        container_name: "lumiere"
+        build: .
         ports:
             - 8000:8000
         volumes:
             - btcd_certs:/certs
-            - .:/app
-        build:
-            dockerfile: ./Dockerfile.dev
-            context: .
         env_file:
             - .env
-        depends_on: 
-            - btcd
         links:
             - btcd
     btcd:

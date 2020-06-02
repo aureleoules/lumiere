@@ -16,18 +16,35 @@ var Client *rpcclient.Client
 
 var tries int
 
-const maxRetry = 5
+const maxRetry = 10
 
 // Init RPC client
 func Init() error {
 	tries++
-	certs, err := ioutil.ReadFile(filepath.Join(os.Getenv("CERTS_LOCATION"), "rpc.cert"))
+	location := os.Getenv("CERTS_LOCATION")
+	if location == "" {
+		location = "/certs"
+	}
+
+	certs, err := ioutil.ReadFile(filepath.Join(location, "rpc.cert"))
 	if err != nil {
 		return err
 	}
 
+	host := os.Getenv("RPC_HOST")
+
+	if os.Getenv("RPC_PORT") != "" {
+		host += ":" + os.Getenv("RPC_PORT")
+	} else {
+		if os.Getenv("NETWORK") == "testnet" {
+			host += ":18334"
+		} else {
+			host += ":8334"
+		}
+	}
+
 	connCfg := &rpcclient.ConnConfig{
-		Host:         os.Getenv("RPC_HOST"),
+		Host:         host,
 		Endpoint:     "ws",
 		User:         os.Getenv("RPC_USER"),
 		Pass:         os.Getenv("RPC_PASS"),
