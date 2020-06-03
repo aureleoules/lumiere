@@ -1,0 +1,20 @@
+.navbar {
+    height: 65px;
+    width: 100%;
+    box-shadow: 0 2px 8px #f0f1f2;
+
+    display: flex;
+    align-items: center;
+
+    h3 {
+        margin: 0;
+        margin-left: 50px;
+        text-transform: uppercase;
+        // font-weight: 400;
+    }
+
+    .search {
+        width: 500px;
+        margin-left: 100px;
+    }
+}

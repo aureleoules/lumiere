@@ -12,6 +12,8 @@ services:
             - ./ui:/app
         command: start
         stdin_open: true
+        environment:
+            - REACT_APP_API_ENDPOINT=http://localhost:8000/api
     lumiere_core:
         container_name: "lumiere_core"
         ports:
