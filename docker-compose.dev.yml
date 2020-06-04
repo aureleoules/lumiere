@@ -43,7 +43,6 @@ services:
             - 18333:18333
         env_file:
             - .env
-        restart: always
 
 volumes:
     btcd_certs:

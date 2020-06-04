@@ -19,6 +19,7 @@ export default function(props: any) {
         if(event.keyCode !== 13) return;
 
         httpClient.Search.search(value).then((result: SearchResult) => {
+            setValue("");
             history.push('/' + result.type + '/' + result.data);
         }).catch(err => {
             if(err) throw err;
@@ -31,6 +32,7 @@ export default function(props: any) {
 
             <Input
                 onChange={e => setValue(e.target.value)} 
+                value={value}
                 onKeyDown={submit}
                 className={styles.search} 
                 size="large" 
