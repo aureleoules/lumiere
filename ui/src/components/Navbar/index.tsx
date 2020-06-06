@@ -18,6 +18,7 @@ export default function(props: any) {
     function submit(event: KeyboardEvent<HTMLInputElement>) {
         // Enter key
         if(event.keyCode !== 13) return;
+        if(value === "") return;
 
         httpClient.Search.search(value).then((result: SearchResult) => {
             setValue("");

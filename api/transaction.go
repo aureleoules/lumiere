@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/aureleoules/lumiere/models"
 	"github.com/aureleoules/lumiere/rpc"
@@ -15,42 +16,35 @@ func handleTransactionRoutes() {
 	api.GET("/tx/:hash", handleTransaction)
 }
 
-func handleTransaction(c *gin.Context) {
-	hash, err := chainhash.NewHashFromStr(c.Param("hash"))
-	if err != nil {
-		zap.S().Error(err)
-		response(c, http.StatusBadRequest, err, nil)
-		return
-	}
-
+func getTransaction(hash *chainhash.Hash) (models.Transaction, error) {
 	result, err := rpc.Client.GetRawTransactionVerbose(hash)
 	if err != nil {
-		response(c, http.StatusNotFound, err, nil)
-		return
+
+		return models.Transaction{}, err
 	}
 
 	var inputs []models.TxVin
 	var totalInput float64
 	for _, vin := range result.Vin {
-		h, err := chainhash.NewHashFromStr(vin.Txid)
-		if err != nil {
-			zap.S().Error("invalid utxo")
-			response(c, http.StatusInternalServerError, err, nil)
-		}
-		utxo, err := rpc.Client.GetRawTransactionVerbose(h)
-		if err != nil {
-			zap.S().Error("invalid utxo")
-			response(c, http.StatusInternalServerError, err, nil)
-		}
+		if vin.Txid != "" {
+			h, err := chainhash.NewHashFromStr(vin.Txid)
+			if err != nil {
+				zap.S().Error("uh oh", err)
+				return models.Transaction{}, err
+			}
+			utxo, err := rpc.Client.GetRawTransactionVerbose(h)
+			if err != nil {
+				return models.Transaction{}, err
+			}
+			vout := utxo.Vout[vin.Vout]
+			inputs = append(inputs, models.TxVin{
+				Data:    vin,
+				Address: vout.ScriptPubKey.Addresses[0],
+				Value:   vout.Value,
+			})
 
-		vout := utxo.Vout[vin.Vout]
-		inputs = append(inputs, models.TxVin{
-			Data:    vin,
-			Address: vout.ScriptPubKey.Addresses[0],
-			Value:   vout.Value,
-		})
-
-		totalInput += utxo.Vout[vin.Vout].Value
+			totalInput += utxo.Vout[vin.Vout].Value
+		}
 	}
 
 	var totalOutput float64
@@ -58,10 +52,13 @@ func handleTransaction(c *gin.Context) {
 		totalOutput += vout.Value
 	}
 
-	fmt.Println(inputs)
+	var fees float64 = 0
+	if totalInput != 0 {
+		fees = totalInput - totalOutput
+	}
 
-	tx := models.Transaction{
-		TotalFees:     totalInput - totalOutput,
+	return models.Transaction{
+		TotalFees:     fees,
 		TotalInput:    totalInput,
 		TotalOutput:   totalOutput,
 		Vin:           inputs,
@@ -78,7 +75,31 @@ func handleTransaction(c *gin.Context) {
 		Version:       result.Version,
 		Vsize:         result.Vsize,
 		Weight:        result.Weight,
+	}, nil
+}
+
+func handleTransaction(c *gin.Context) {
+	hashlist := strings.Split(c.Param("hash"), ",")
+
+	var txs []models.Transaction
+
+	for _, hash := range hashlist {
+		h, err := chainhash.NewHashFromStr(hash)
+		if err != nil {
+			response(c, http.StatusNotAcceptable, err, nil)
+			return
+		}
+		fmt.Println(h.String())
+
+		tx, err := getTransaction(h)
+		if err != nil {
+			zap.S().Error(err)
+			response(c, http.StatusNotFound, err, nil)
+			return
+		}
+
+		txs = append(txs, tx)
 	}
 
-	response(c, http.StatusOK, nil, tx)
+	response(c, http.StatusOK, nil, txs)
 }

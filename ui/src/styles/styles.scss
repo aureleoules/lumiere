@@ -6,3 +6,27 @@ html, body {
     padding: 0;
     font-family: 'Josefin Sans';
 }
+
+.page {
+    margin-top: 20px;
+}
+
+.table {
+    margin-bottom: 25px;
+    .element {
+        border-bottom: 1px solid rgb(223, 227, 235);
+        display: flex;
+        padding: 10px 0;
+        .key {
+            width: 200px;
+        }
+        .value {
+            font-weight: 500;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            overflow: hidden; 
+            white-space: nowrap;
+        }
+    }
+}

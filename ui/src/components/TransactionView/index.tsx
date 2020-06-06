@@ -6,34 +6,43 @@ import { Link } from 'react-router-dom';
 import {ReactComponent as Arrow} from '../../assets/svg/arrow.svg';
 import { Button } from 'antd';
 
+import TransactionActor from '../../components/TransactionActor';
+
 export default function(tx: Transaction) {
+
+    function showDetails() {
+
+    }
+
     return (
         <div className={styles.tx}>
             <div className={styles.top}>
                 <Link to={"/tx/" + tx.hash}>{tx.hash}</Link>
-                <Button >Details</Button>
+                <Button onClick={showDetails}>Details</Button>
             </div>
 
             <div className={styles.details}>
                 <div className={styles.inputs}>
-                    {tx.vin.map((vin, i) => (
-                        <div className={styles.input}>
-                            <Link to={"/address/" + vin.address} key={i}>{vin.address}</Link>
-                            <span className={styles.amount}>{vin.value} BTC</span>
-                        </div>
+                    {tx.vin && tx.vin.map((vin, i) => (
+                        <TransactionActor link address={vin.address} amount={vin.value}/>
                     ))}
+                    {!tx.vin && <TransactionActor address={"Coinbase"} />}
                 </div>
 
                 <Arrow/>
 
                 <div className={styles.outputs}>
-                    {tx.vout.map((vout, i) => (
-                        <div className={styles.output}>
-                            {vout.scriptPubKey.addresses && <Link to={"/address/" + vout.scriptPubKey.addresses![0]} key={i}>{vout.scriptPubKey.addresses![0]}</Link>}
-                            {!vout.scriptPubKey.addresses && <span className={styles.op_return}>OP_RETURN</span>}
-                            <span className={styles.amount}>{vout.value} BTC</span>
-                        </div>
-                    ))}
+                    {tx.vout.map((vout, i) => {
+                        if(vout.scriptPubKey.addresses) return <TransactionActor 
+                            link
+                            address={vout.scriptPubKey.addresses![0]} 
+                            amount={vout.value}
+                        />
+                        return <TransactionActor 
+                            address={"OP_RETURN"} 
+                            amount={vout.value}
+                        />}
+                    )}
                 </div>
             </div>
         </div>

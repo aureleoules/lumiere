@@ -13,7 +13,7 @@ export type Block = {
     size: number
     strippedsize: number
     time: 1296701466
-    tx: Array<Transaction>
+    tx: Array<string>
     version: number
     versionHex: string
     weight: number

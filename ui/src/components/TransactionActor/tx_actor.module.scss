@@ -1,0 +1,34 @@
+.actor {
+    @media screen and(max-width: 530px) {
+        flex-direction: column;
+        text-align: center;
+    }
+    margin: 5px 0;
+    width: 100%;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    padding: 12px 24px;
+    display: flex;
+    
+    justify-content: space-between;
+    a, span {
+        font-size: 13px;
+        word-wrap: break-word;
+    }
+    a {
+        color: rgba(0, 0, 0, 0.65);
+        font-weight: 500;
+
+        &:hover {
+            color: #1890ff;
+        }
+    }
+    span.amount {
+        color: white;
+        margin-left: 15px;
+        color: rgba(0, 0, 0, 0.65);
+    }
+    span.address {
+        font-weight: 500;
+    }
+}

@@ -30,5 +30,4 @@ func handleBlock(c *gin.Context) {
 	}
 
 	response(c, http.StatusOK, err, block)
-
 }
