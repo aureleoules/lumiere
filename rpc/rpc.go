@@ -36,7 +36,7 @@ func Init() error {
 	if os.Getenv("RPC_PORT") != "" {
 		host += ":" + os.Getenv("RPC_PORT")
 	} else {
-		if os.Getenv("NETWORK") == "testnet" {
+		if os.Getenv("TESTNET") == "1" {
 			host += ":18334"
 		} else {
 			host += ":8334"

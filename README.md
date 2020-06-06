@@ -73,5 +73,5 @@ The UI is available at [localhost:3000]().
 * RPC_PASS          # RPC password
 * RPC_HOST          # RPC host or ip
 * RPC_PORT          # RPC port (optional)
-* NETWORK           # Bitcoin network (mainnet/testnet)
+* TESTNET           # Use testnet (TESTNET=1)
 * CERTS_LOCATION    # Location of TLS certificates (optional) 

@@ -21,4 +21,4 @@ ENTRYPOINT /bin/gencerts -d /certs -H btcd -f && /bin/btcd --txindex --addrindex
     --rpclisten=0.0.0.0 \
     -u $RPC_USER \
     -P $RPC_PASS \
-    --$NETWORK
+    $([ $TESTNET == 1 ] && echo --testnet)
