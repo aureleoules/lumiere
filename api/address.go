@@ -29,5 +29,7 @@ func handleAddress(c *gin.Context) {
 		response(c, http.StatusNotFound, err, nil)
 		return
 	}
+	data.Address = addressStr
+
 	response(c, http.StatusOK, nil, data)
 }

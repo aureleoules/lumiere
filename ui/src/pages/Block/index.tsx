@@ -40,7 +40,7 @@ export default function(props: any) {
         <>
             <Navbar/>
             {block && <div className={`page ${styles.block}`}>
-                <div className={styles.details}>
+                <div className="details">
                     <h1>Block #{block?.height}</h1>
                     <div className="table">                   
                         <div className="element">

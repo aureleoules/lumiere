@@ -27,7 +27,7 @@ export default function(props: any) {
         <>
             <Navbar/>
             <div className={`page ${styles.transaction}`}>
-                 {tx && <div className={styles.details}>
+                 {tx && <div className="details">
                     <h1>Transaction</h1>
                     <div className="table">
                         <div className="element">

@@ -1,14 +1,5 @@
 .transaction {
-    .details {
-        h1 {
-            margin-left: -2px;
-        }
-        
-        width: 980px;
-        margin: 0 auto;
-
-        @media screen and(max-width: 1080px) {
-            width: 90%;
-        }
+    h1 {
+        margin-left: -2px;
     }
 }

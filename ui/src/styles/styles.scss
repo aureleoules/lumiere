@@ -9,6 +9,14 @@ html, body {
 
 .page {
     margin-top: 20px;
+
+    .details {
+        width: 980px;
+        margin: 0 auto;
+        @media screen and(max-width: 1080px) {
+            width: 90%;
+        }
+    }
 }
 
 .table {
