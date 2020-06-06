@@ -6,10 +6,15 @@ import Navbar from '../../components/Navbar';
 import {Address} from '../../types/address';
 import Client from '../../httpClient';
 import TransactionView from '../../components/TransactionView';
+import Loader from 'react-loader-spinner';
+import { Button } from 'antd';
 
 export default function(props: any) {
 
+    const PAGE_SIZE = 10;
+
     const [address, setAddress] = useState<Address | null>(null);
+    const [limit, setLimit] = useState<number>(10);
 
     useEffect(() => {
         const address = props.match.params.address;
@@ -23,8 +28,8 @@ export default function(props: any) {
     return (
         <>
             <Navbar/>
-            <div className={`page ${styles.address}`}>
-                {address && <div className="details">
+            {address && <div className={`page ${styles.address}`}>
+                 <div className="details">
                     <h1>Address</h1>
                     <div className="table">                   
                         <div className="element">
@@ -63,12 +68,22 @@ export default function(props: any) {
 
                     <h1>Transactions ({address.transactions.length})</h1>
                     {address.transactions && <div>
-                        {address.transactions!.map((tx, i) => (
-                            <TransactionView highlight={address.address} address key={i} vin={tx.vin} hash={tx.txid} vout={tx.vout}/>
+                        {address.transactions!.slice(0, limit).map((tx, i) => (
+                            <TransactionView coinbase={tx.vin[0].coinbase !== undefined} highlight={address.address} address key={i} vin={tx.vin} hash={tx.txid} vout={tx.vout}/>
                         ))}
                     </div>}
-                </div>}
-            </div>
+                    <Button onClick={() => setLimit(limit => limit+PAGE_SIZE)}>Show more</Button>
+                </div>
+            </div>}
+
+            {!address && <div className="loader-container">
+                <Loader
+                    type="ThreeDots"
+                    color="#1a1919"
+                    height={100}
+                    width={100}
+                />
+            </div>}}
         </>
     )
 }

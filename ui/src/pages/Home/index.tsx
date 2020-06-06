@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import Loader from 'react-loader-spinner';
 import styles from './home.module.scss';
 import Navbar from '../../components/Navbar';
 import BlockView from '../../components/BlockView';
@@ -28,14 +29,21 @@ export default function(props: any) {
     return (
         <>
             <Navbar/>
-            <div className={`page ${styles.home}`}>
+            {blocks.length > 0 && <div className={`page ${styles.home}`}>
                 <div className="details">
                     <h1>Recent blocks</h1>
-
                     {blocks?.map(b => <BlockView {...b}/>)}
                     <Button onClick={() => setSkip(skip => skip + FETCH_SIZE)}>Show more</Button>
                 </div>
-            </div>
+            </div>}
+            {blocks.length === 0 && <div className="loader-container">
+                <Loader
+                    type="ThreeDots"
+                    color="#1a1919"
+                    height={100}
+                    width={100}
+                />
+            </div>}
         </>
     )
 }

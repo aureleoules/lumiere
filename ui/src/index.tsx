@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import './styles/styles.scss';
 import 'antd/dist/antd.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import Router from './Router';
 

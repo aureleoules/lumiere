@@ -59,6 +59,7 @@ export type VinWithPrevOut = {
     txid: string
     txinwitness: Array<string>
     vout: number
+    coinbase: string
 }
 
 export type AddressTransaction = {

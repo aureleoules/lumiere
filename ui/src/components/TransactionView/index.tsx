@@ -14,6 +14,7 @@ type Props = {
     hash: string
     address?: boolean
     highlight?: string
+    coinbase?: boolean
 }
 
 export default function(tx: Props) {
@@ -32,7 +33,7 @@ export default function(tx: Props) {
             <div className={styles.details}>
                 <div className={styles.inputs}>
                     <h2>Inputs ({tx.vin ? tx.vin.length : 1})</h2>
-                    {tx.vin && tx.vin.map((vin: any, i: number) => {
+                    {tx.vin && !tx.coinbase && tx.vin.map((vin: any, i: number) => {
                         if(tx.address) return <TransactionActor 
                             key={i} 
                             link 
@@ -48,7 +49,7 @@ export default function(tx: Props) {
                             amount={vin.value}
                         />;
                     })}
-                    {!tx.vin && <TransactionActor address={"Coinbase"} />}
+                    {!tx.vin || tx.coinbase && <TransactionActor address={"Coinbase"} />}
                 </div>
 
                 <Arrow/>
@@ -64,6 +65,7 @@ export default function(tx: Props) {
                             amount={vout.value}
                         />
                         return <TransactionActor 
+                            key={i}
                             address={"OP_RETURN"} 
                             amount={vout.value}
                         />}

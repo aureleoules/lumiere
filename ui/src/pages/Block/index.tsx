@@ -4,6 +4,7 @@ import styles from './block.module.scss';
 import Client from '../../httpClient';
 import Navbar from '../../components/Navbar';
 import { Block } from '../../types/block';
+import Loader from 'react-loader-spinner';
 
 import dayjs from 'dayjs';
 import prettyBytes from 'pretty-bytes';
@@ -161,7 +162,23 @@ export default function(props: any) {
                             <TransactionView hash={tx.txid} vin={tx.vin} vout={tx.vout} key={i}/>
                         ))}
                     </div>}
+                    {!txs && <div className="loader-container small">
+                        <Loader
+                            type="ThreeDots"
+                            color="#1a1919"
+                            height={100}
+                            width={100}
+                        />
+                    </div>} 
                 </div>
+            </div>}
+            {!block && <div className="loader-container">
+                <Loader
+                    type="ThreeDots"
+                    color="#1a1919"
+                    height={100}
+                    width={100}
+                />
             </div>}
         </>
     )

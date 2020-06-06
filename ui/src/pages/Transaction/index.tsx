@@ -4,6 +4,7 @@ import styles from './transaction.module.scss';
 import { Transaction } from '../../types/transaction';
 import Client from '../../httpClient';
 import Navbar from '../../components/Navbar';
+import Loader from 'react-loader-spinner';
 
 import dayjs from 'dayjs';
 import prettyBytes from 'pretty-bytes';
@@ -26,8 +27,8 @@ export default function(props: any) {
     return (
         <>
             <Navbar/>
-            <div className={`page ${styles.transaction}`}>
-                 {tx && <div className="details">
+            {tx && <div className={`page ${styles.transaction}`}>
+                 <div className="details">
                     <h1>Transaction</h1>
                     <div className="table">
                         <div className="element">
@@ -136,8 +137,16 @@ export default function(props: any) {
                         </div>
                     </div>
                     <TransactionView hash={tx.txid} vin={tx.vin} vout={tx.vout}/>
-                </div>}
-            </div>
+                </div>
+            </div>}
+            {!tx && <div className="loader-container">
+                <Loader
+                    type="ThreeDots"
+                    color="#1a1919"
+                    height={100}
+                    width={100}
+                />
+            </div>}
         </>
     )
 }
