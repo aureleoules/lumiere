@@ -24,7 +24,6 @@ export default function(props: any) {
         Client.Blocks.get(hash).then(b => {
             setBlock(b);
             const list = b.tx.slice(page*PAGE_SIZE, page*PAGE_SIZE+PAGE_SIZE);
-            console.log(list);
             Client.Transactions.batch(list).then(txs => {
                 setTxs(txs);
             }).catch(err => {

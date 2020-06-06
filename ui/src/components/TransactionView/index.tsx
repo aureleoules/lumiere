@@ -18,7 +18,6 @@ type Props = {
 
 export default function(tx: Props) {
 
-    console.log(tx);
     function showDetails() {
 
     }

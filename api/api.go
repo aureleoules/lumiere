@@ -19,10 +19,10 @@ func Listen(port string) {
 	}))
 
 	// Production
-	router.Use(static.Serve("/", static.LocalFile("build", true)))
 	api = router.Group("/api")
-	api.GET("/", func(c *gin.Context) {
-		c.JSON(200, "o")
+	router.Use(static.Serve("/", static.LocalFile("build", true)))
+	router.NoRoute(func(c *gin.Context) {
+		c.File("./build/index.html")
 	})
 
 	handleSearchRoutes()
