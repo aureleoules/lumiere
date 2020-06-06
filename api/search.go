@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/aureleoules/lumiere/models"
@@ -41,8 +42,14 @@ func handleSearch(c *gin.Context) {
 			return
 		}
 	}
+
+	var networkParams chaincfg.Params = chaincfg.MainNetParams
+	if os.Getenv("TESTNET") == "1" {
+		networkParams = chaincfg.TestNet3Params
+	}
+
 	// Cannot be a block, nor a tx
-	address, err := btcutil.DecodeAddress(value, &chaincfg.TestNet3Params)
+	address, err := btcutil.DecodeAddress(value, &networkParams)
 	if err == nil {
 		if addressExists(address) {
 			response(c, http.StatusOK, nil, models.SearchResult{
