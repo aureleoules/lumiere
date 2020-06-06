@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Address } from '../types/address';
 
-const route = "/address";
+const route = "/addresses";
 
 export default {
     get: (address: string) => new Promise<Address>((resolve, reject) => {

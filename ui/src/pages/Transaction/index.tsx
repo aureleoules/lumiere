@@ -35,7 +35,7 @@ export default function(props: any) {
                                 Hash
                             </div>
                             <div className="value">
-                                {tx?.hash}
+                                {tx?.txid}
                             </div>
                         </div>
                         <div className="element">
@@ -135,7 +135,7 @@ export default function(props: any) {
                             </div>
                         </div>
                     </div>
-                    <TransactionView {...tx}/>
+                    <TransactionView hash={tx.txid} vin={tx.vin} vout={tx.vout}/>
                 </div>}
             </div>
         </>

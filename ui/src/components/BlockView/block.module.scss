@@ -1,0 +1,17 @@
+.block {
+    width: 100%;
+    background: #eeeeee;
+    border-radius: 8px;
+    padding: 12px 24px;
+
+    margin-bottom: 15px;
+
+    p {
+        margin-bottom: 5px;
+        word-wrap: break-word;
+        span {
+            font-weight: 500;
+        }
+    }
+    
+}

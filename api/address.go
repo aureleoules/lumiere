@@ -10,7 +10,7 @@ import (
 )
 
 func handleAddressesRoutes() {
-	api.GET("/address/:address", handleAddress)
+	api.GET("/addresses/:address", handleAddress)
 }
 
 func handleAddress(c *gin.Context) {

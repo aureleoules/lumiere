@@ -159,7 +159,7 @@ export default function(props: any) {
                     <h1>Transactions ({block.tx.length})</h1>
                     {txs && <div>
                         {txs!.map((tx, i) => (
-                            <TransactionView key={i} {...tx}/>
+                            <TransactionView hash={tx.txid} vin={tx.vin} vout={tx.vout} key={i}/>
                         ))}
                     </div>}
                 </div>

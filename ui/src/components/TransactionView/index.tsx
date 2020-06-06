@@ -32,7 +32,7 @@ export default function(tx: Props) {
 
             <div className={styles.details}>
                 <div className={styles.inputs}>
-                    <h2>Inputs ({tx.vin.length})</h2>
+                    <h2>Inputs ({tx.vin ? tx.vin.length : 1})</h2>
                     {tx.vin && tx.vin.map((vin: any, i: number) => {
                         if(tx.address) return <TransactionActor 
                             key={i} 
