@@ -49,7 +49,7 @@ export default function(tx: Props) {
                             amount={vin.value}
                         />;
                     })}
-                    {!tx.vin || tx.coinbase && <TransactionActor address={"Coinbase"} />}
+                    {(!tx.vin || tx.coinbase) && <TransactionActor address={"Coinbase"} />}
                 </div>
 
                 <Arrow/>
