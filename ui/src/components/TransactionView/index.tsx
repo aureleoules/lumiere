@@ -32,6 +32,7 @@ export default function(tx: Props) {
 
             <div className={styles.details}>
                 <div className={styles.inputs}>
+                    <h2>Inputs ({tx.vin.length})</h2>
                     {tx.vin && tx.vin.map((vin: any, i: number) => {
                         if(tx.address) return <TransactionActor 
                             key={i} 
@@ -54,6 +55,7 @@ export default function(tx: Props) {
                 <Arrow/>
 
                 <div className={styles.outputs}>
+                    <h2>Outputs ({tx.vout.length})</h2>
                     {tx.vout.map((vout, i) => {
                         if(vout.scriptPubKey.addresses) return <TransactionActor 
                             key={i}

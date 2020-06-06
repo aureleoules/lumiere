@@ -42,6 +42,7 @@
     }
 
     svg {
+        margin-top: 45px;
         width: 40px;
         height: 50px;
         @media screen and(max-width: 1080px) {
@@ -53,7 +54,6 @@
 
     .outputs, .inputs {
         display: flex;
-        align-items: center;
         flex-direction: column;
         min-width: 430px;
         position: relative;
