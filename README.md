@@ -1,6 +1,8 @@
 # lumière
 Simple Bitcoin block explorer
 
+Checkout the [demo](https://lumiere.aureleoules.com/).
+
 ## Install
 Here is the process to install lumière.
 
