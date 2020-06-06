@@ -9,6 +9,7 @@ import httpClient from '../../httpClient';
 import { SearchResult } from '../../types/search_result';
 
 import history from '../../history';
+import { Link } from 'react-router-dom';
 
 export default function(props: any) {
 
@@ -28,7 +29,9 @@ export default function(props: any) {
 
     return (
         <div className={styles.navbar}>
-            <h3>lumière</h3>
+                <Link className={styles.logo} to="/">
+                    lumière
+                </Link>
 
             <Input
                 onChange={e => setValue(e.target.value)} 

@@ -1,0 +1,100 @@
+.tx {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 25px;
+
+    @media screen and(max-width: 1080px) {
+        padding: 15px;
+    }
+
+    .details {
+        justify-content: space-between;
+        display: flex;
+        @media screen and(max-width: 1080px) {
+            flex-direction: column;
+        }
+    }
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        a {
+            word-break: break-all;
+        }
+
+        button {
+            margin-left: 15px;
+        }
+
+        @media screen and(max-width: 680px) {
+            flex-direction: column;
+            button {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+        }
+    }
+
+    svg {
+        width: 50px;
+        height: 50px;
+        @media screen and(max-width: 1080px) {
+            transform: rotate(90deg);
+            width: 100%;
+        }
+        fill: #2d2b2b;
+    }
+
+    .outputs, .inputs {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        min-width: 430px;
+        position: relative;
+
+        @media screen and(max-width: 680px) {
+            min-width: unset;
+            width: 100%;
+        }
+
+        
+        .output, .input {
+            @media screen and(max-width: 530px) {
+                flex-direction: column;
+                text-align: center;
+            }
+            margin: 5px 0;
+            width: 100%;
+            background-color: #eeeeee;
+            border-radius: 8px;
+            padding: 12px 24px;
+            display: flex;
+            
+            justify-content: space-between;
+            a, span {
+                font-size: 13px;
+                word-wrap: break-word;
+            }
+            a {
+                color: rgba(0, 0, 0, 0.65);
+                font-weight: 500;
+
+                &:hover {
+                    color: #1890ff;
+                }
+            }
+            span.op_return {
+                font-weight: 500;
+            }
+            span.amount {
+                color: white;
+                margin-left: 15px;
+                color: rgba(0, 0, 0, 0.65);
+            }
+        }
+    }
+}
