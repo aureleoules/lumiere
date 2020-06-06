@@ -22,6 +22,8 @@ Now run the app.
 $ docker-compose up
 ```
 
+Check out [localhost:8000]().
+
 ### Need a new BTCD node?
 
 Create a `.env` file from the `.env.sample` template.  
@@ -41,6 +43,8 @@ Now run the app.
 ```
 $ docker-compose -f docker-compose.btcd.yml up
 ```
+
+Check out [localhost:8000]().
 
 ## Development
 
