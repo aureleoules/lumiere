@@ -36,7 +36,6 @@ export default function(props: any) {
 
     return (
         <>
-            <Navbar/>
             {blocks.length > 0 && <div className={`page ${styles.home}`}>
                 <div className="details">
                     <h1>Recent blocks</h1>

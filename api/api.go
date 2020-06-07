@@ -25,10 +25,17 @@ func Listen(port string) {
 		c.File("./build/index.html")
 	})
 
-	handleSearchRoutes()
-	handleBlockRoutes()
-	handleAddressesRoutes()
-	handleTransactionRoutes()
+	api.GET("/search/:value", handleSearch)
+
+	api.GET("/blocks", handleRecentBlocks)
+	api.GET("/blocks/:hash", handleBlock)
+
+	api.GET("/addresses/:address", handleAddress)
+	api.GET("/addresses/:address/tx", handleAddressTransactions)
+
+	api.GET("/tx/:hash", handleTransaction)
+
+	api.GET("/infos", handleInfos)
 
 	router.Run("0.0.0.0:" + port)
 }

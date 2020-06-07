@@ -8,10 +8,12 @@ import Block from './pages/Block';
 import Blocks from './pages/Blocks';
 import Address from './pages/Address';
 import Transaction from './pages/Transaction';
+import Navbar from './components/Navbar';
 
 export default function(props: any) {
     return (
         <Router history={history}>
+            <Navbar/>
             <Switch>
                 <Route exact path="/" component={Home}/>
 

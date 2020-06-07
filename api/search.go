@@ -13,10 +13,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func handleSearchRoutes() {
-	api.GET("/search/:value", handleSearch)
-}
-
 func handleSearch(c *gin.Context) {
 	value := c.Param("value")
 

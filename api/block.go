@@ -13,8 +13,7 @@ import (
 )
 
 func handleBlockRoutes() {
-	api.GET("/blocks", handleRecentBlocks)
-	api.GET("/blocks/:hash", handleBlock)
+
 }
 
 type Block struct {

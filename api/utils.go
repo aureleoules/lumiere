@@ -35,6 +35,7 @@ func addressExists(address btcutil.Address) bool {
 }
 
 func getAddressData(address btcutil.Address) (models.AddressData, error) {
+
 	txs, err := rpc.Client.SearchRawTransactionsVerbose(address, 0, math.MaxInt16, true, false, nil)
 	if err != nil {
 		return models.AddressData{}, err

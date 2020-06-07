@@ -56,11 +56,18 @@ export default function(props: any) {
 
     return (
         <>
-            <Navbar/>
-            {address && <div className={`page ${styles.address}`}>
-                 <div className="details">
+            <div className={`page ${styles.address}`}>
+                <div className="details">
                     <h1>Address</h1>
-                    <div className="table">                   
+                    {!address && <div className="loader-container small">
+                        <Loader
+                            type="ThreeDots"
+                            color="#1a1919"
+                            height={100}
+                            width={100}
+                        />
+                    </div>}
+                    {address && <div className="table">                   
                         <div className="element">
                             <div className="key">
                                 Address
@@ -101,12 +108,12 @@ export default function(props: any) {
                                 {address.transactions}
                             </div>
                         </div>
-                    </div>
+                    </div>}
 
-                    <h1>Transactions ({address.transactions})</h1>
+                    <h1>Transactions</h1>
                     {txs && <div>
                         {txs.map((tx, i) => (
-                            <TransactionView coinbase={tx.vin[0].coinbase !== undefined} highlight={address.address} address key={i} vin={tx.vin} hash={tx.txid} vout={tx.vout}/>
+                            <TransactionView coinbase={tx.vin[0].coinbase !== undefined} highlight={props.match.params.address} address key={i} vin={tx.vin} hash={tx.txid} vout={tx.vout}/>
                         ))}
                     </div>}
                     {loadingTxs && <div className="loader-container">
@@ -118,16 +125,7 @@ export default function(props: any) {
                         />
                     </div>}
                 </div>
-            </div>}
-
-            {!address && <div className="loader-container">
-                <Loader
-                    type="ThreeDots"
-                    color="#1a1919"
-                    height={100}
-                    width={100}
-                />
-            </div>}
+            </div>
         </>
     )
 }

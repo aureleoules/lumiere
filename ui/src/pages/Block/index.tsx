@@ -63,7 +63,6 @@ export default function(props: any) {
 
     return (
         <>
-            <Navbar/>
             {block && <div className={`page ${styles.block}`}>
                 <div className="details">
                     <h1>Block #{block?.height}</h1>

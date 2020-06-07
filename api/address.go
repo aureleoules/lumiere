@@ -12,11 +12,6 @@ import (
 	"go.uber.org/zap"
 )
 
-func handleAddressesRoutes() {
-	api.GET("/addresses/:address", handleAddress)
-	api.GET("/addresses/:address/tx", handleAddressTransactions)
-}
-
 func handleAddress(c *gin.Context) {
 	addressStr := c.Param("address")
 

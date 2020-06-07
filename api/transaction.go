@@ -12,10 +12,6 @@ import (
 	"go.uber.org/zap"
 )
 
-func handleTransactionRoutes() {
-	api.GET("/tx/:hash", handleTransaction)
-}
-
 func getTransaction(hash *chainhash.Hash) (models.Transaction, error) {
 	result, err := rpc.Client.GetRawTransactionVerbose(hash)
 	if err != nil {

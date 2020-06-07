@@ -26,7 +26,6 @@ export default function(props: any) {
 
     return (
         <>
-            <Navbar/>
             {tx && <div className={`page ${styles.transaction}`}>
                  <div className="details">
                     <h1>Transaction</h1>
