@@ -24,6 +24,8 @@ export default function(props: any) {
 
     useEffect(() => {
         setLoadingAddress(true);
+        setTxs(new Array<AddressTransaction>());
+        
         const address = props.match.params.address;
         Client.Addresses.get(address).then(addr => {
             setAddress(addr);
