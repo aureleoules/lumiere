@@ -7,7 +7,6 @@ import {Address} from '../../types/address';
 import Client from '../../httpClient';
 import TransactionView from '../../components/TransactionView';
 import Loader from 'react-loader-spinner';
-import { Button } from 'antd';
 import { AddressTransaction } from '../../types/transaction';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 

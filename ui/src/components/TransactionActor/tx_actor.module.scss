@@ -13,12 +13,12 @@
     justify-content: space-between;
     a, span {
         font-size: 13px;
-        word-wrap: break-word;
     }
     a {
         color: rgba(0, 0, 0, 0.65);
         font-weight: 500;
 
+        word-break: break-all;
         &:hover {
             color: #1890ff;
         }
@@ -32,6 +32,7 @@
         color: white;
         margin-left: 15px;
         color: rgba(0, 0, 0, 0.65);
+        white-space: nowrap;
     }
     span.address {
         font-weight: 500;
