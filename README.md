@@ -26,7 +26,7 @@ Now run the app.
 $ docker-compose up
 ```
 
-Check out [localhost:8000]().
+Checkout [localhost:8000]().
 
 ### Already have a BTCD node?
 
