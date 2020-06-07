@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+    lumiere:
+        container_name: "lumiere"
+        build: ../
+        ports:
+            - 8000:8000
+        volumes:
+            - btcd_certs:/certs
+        env_file:
+            - ../.env
+
+volumes:
+    btcd_certs:
+        external: true

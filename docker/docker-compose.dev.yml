@@ -3,13 +3,13 @@ services:
     lumiere_ui:
         container_name: "lumiere_ui"
         build: 
-            dockerfile: Dockerfile.dev
-            context: ./ui
+            dockerfile: ./Dockerfile.dev
+            context: ../ui
         working_dir: /app
         ports:
             - 3000:3000
         volumes:
-            - ./ui:/app
+            - ../ui:/app
         command: start
         stdin_open: true
         environment:
@@ -20,12 +20,12 @@ services:
             - 8000:8000
         volumes:
             - btcd_certs:/certs
-            - .:/app
+            - ..:/app
         build:
-            dockerfile: ./Dockerfile.dev
+            dockerfile: ./dev
             context: .
         env_file:
-            - .env
+            - ../.env
         depends_on: 
             - btcd
         links:
@@ -33,7 +33,7 @@ services:
     btcd:
         container_name: "btcd"
         build:
-            dockerfile: ./Dockerfile.btcd
+            dockerfile: ./btcd
             context: .
         volumes:
             - btcd_data:/root/.btcd
@@ -42,7 +42,7 @@ services:
             - 127.0.0.1:18334:18334
             - 18333:18333
         env_file:
-            - .env
+            - ../.env
 
 volumes:
     btcd_certs:

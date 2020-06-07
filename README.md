@@ -3,30 +3,10 @@ Simple Bitcoin block explorer
 
 Checkout the [demo](https://lumiere.aureleoules.com/).
 
-## Install
+## Get started
 Here is the process to install lumière.
 
-### Already have a BTCD node?
-
-If you already have a btcd node running, make sure it has the `--txindex` and `--addrindex` parameters.  
-
-Create a `.env` file from the `.env.sample` template. Checkout [Environment Variables](#environment-variables) for more informations.
-
-Make sure to create a volume containing TLS certificates to connect to your node.
-
-```bash
-$ docker volume create btcd_certs
-```
-
-Now run the app.
-
-```bash
-$ docker-compose up
-```
-
-Check out [localhost:8000]().
-
-### Need a new BTCD node?
+### Need a new BTCD node? (Recommended)
 
 Create a `.env` file from the `.env.sample` template.  
 Leave the HOST variable as `btcd`.
@@ -43,7 +23,27 @@ $ docker volume create btcd_certs
 Now run the app.
 
 ```
-$ docker-compose -f docker-compose.btcd.yml up
+$ docker-compose up
+```
+
+Check out [localhost:8000]().
+
+### Already have a BTCD node?
+
+If you already have a btcd node running, make sure it has the `--txindex` and `--addrindex` parameters.  
+
+Create a `.env` file from the `.env.sample` template. Checkout [Environment Variables](#environment-variables) for more informations.
+
+Make sure to create a volume containing TLS certificates to connect to your node.
+
+```bash
+$ docker volume create btcd_certs
+```
+
+Now run the app.
+
+```bash
+$ docker-compose -f docker/docker-compose.lumiere.yml up
 ```
 
 Check out [localhost:8000]().
@@ -66,7 +66,7 @@ $ docker volume create btcd_certs
 Now run the development environment.
 
 ```bash
-$ docker-compose -f docker-compose.dev.yml up
+$ docker-compose -f docker/docker-compose.dev.yml up
 ```
 
 This will start a BTCD node on the test network, the Go API and the UI.

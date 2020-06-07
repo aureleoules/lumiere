@@ -9,7 +9,24 @@ services:
             - btcd_certs:/certs
         env_file:
             - .env
+        links:
+            - btcd
+    btcd:
+        container_name: "btcd"
+        build:
+            dockerfile: ./docker/btcd
+            context: .
+        volumes:
+            - btcd_data:/root/.btcd
+            - btcd_certs:/certs
+        ports:
+            - 127.0.0.1:18334:18334
+            - 18333:18333
+        env_file:
+            - .env
 
 volumes:
     btcd_certs:
+        external: true
+    btcd_data:
         external: true
