@@ -17,6 +17,12 @@ func handleBlockRoutes() {
 	api.GET("/blocks/:hash", handleBlock)
 }
 
+type Block struct {
+	*btcjson.GetBlockVerboseResult
+	Size              int32 `json:"size"`
+	TransactionsCount int32 `json:"transactions"`
+}
+
 func handleRecentBlocks(c *gin.Context) {
 	height, err := rpc.Client.GetBlockCount()
 	if err != nil {
@@ -43,7 +49,7 @@ func handleRecentBlocks(c *gin.Context) {
 		return
 	}
 
-	var blocks []*btcjson.GetBlockVerboseResult
+	var blocks []*Block
 	for i := 0; i < limit; i++ {
 
 		block, err := rpc.Client.GetBlockVerbose(hash)
@@ -51,7 +57,14 @@ func handleRecentBlocks(c *gin.Context) {
 			response(c, http.StatusNotFound, err, nil)
 			return
 		}
-		blocks = append(blocks, block)
+		block.RawTx = nil
+		count := len(block.Tx)
+		block.Tx = nil
+		blocks = append(blocks, &Block{
+			GetBlockVerboseResult: block,
+			TransactionsCount:     int32(count),
+			Size:                  block.Size,
+		})
 
 		hash, err = chainhash.NewHashFromStr(block.PreviousHash)
 		if err != nil {

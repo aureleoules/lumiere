@@ -1,6 +1,8 @@
 package api
 
 import (
+	"math"
+
 	"github.com/aureleoules/lumiere/models"
 	"github.com/aureleoules/lumiere/rpc"
 	"github.com/btcsuite/btcutil"
@@ -33,7 +35,7 @@ func addressExists(address btcutil.Address) bool {
 }
 
 func getAddressData(address btcutil.Address) (models.AddressData, error) {
-	txs, err := rpc.Client.SearchRawTransactionsVerbose(address, 0, 1000, true, false, nil)
+	txs, err := rpc.Client.SearchRawTransactionsVerbose(address, 0, math.MaxInt16, true, false, nil)
 	if err != nil {
 		return models.AddressData{}, err
 	}
@@ -70,6 +72,6 @@ func getAddressData(address btcutil.Address) (models.AddressData, error) {
 		Received:     received,
 		Spent:        spent,
 		Unspent:      received - spent,
-		Transactions: txs,
+		Transactions: len(txs),
 	}, nil
 }

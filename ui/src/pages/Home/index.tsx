@@ -6,25 +6,33 @@ import Navbar from '../../components/Navbar';
 import BlockView from '../../components/BlockView';
 import Client from '../../httpClient';
 import { Block } from '../../types/block';
-import { Button } from 'antd';
 
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 export default function(props: any) {
 
-    const FETCH_SIZE = 10;
+    const FETCH_SIZE = 5;
 
     const [blocks, setBlocks] = useState<Array<Block>>(new Array<Block>());
-
+    const [fetching, setFetching] = useState<boolean>(true);
     const [skip, setSkip] = useState<number>(0);
 
     useEffect(() => {
+        setFetching(true);
         Client.Blocks.recent(skip, FETCH_SIZE).then(b => {
             const newBlocks = blocks.concat(b);
             setBlocks(newBlocks);
+            setFetching(false);
         }).catch(err => {
-            if(err) throw err;
+            if(err) {
+                setFetching(false);
+                throw err;
+            }
         });
     }, [skip]);
+
+    const onScrollEnd = () => setSkip(skip => skip + FETCH_SIZE);
+    useBottomScrollListener(onScrollEnd);
 
     return (
         <>
@@ -32,11 +40,10 @@ export default function(props: any) {
             {blocks.length > 0 && <div className={`page ${styles.home}`}>
                 <div className="details">
                     <h1>Recent blocks</h1>
-                    {blocks?.map(b => <BlockView {...b}/>)}
-                    <Button onClick={() => setSkip(skip => skip + FETCH_SIZE)}>Show more</Button>
+                    {blocks?.map((b, i) => <BlockView key={i} {...b}/>)}
                 </div>
             </div>}
-            {blocks.length === 0 && <div className="loader-container">
+            {fetching && <div className="loader-container small">
                 <Loader
                     type="ThreeDots"
                     color="#1a1919"

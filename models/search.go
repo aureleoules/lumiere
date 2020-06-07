@@ -4,7 +4,7 @@ type SearchResultType string
 
 const (
 	BlockType       SearchResultType = "block"
-	TransactionType                  = "tx"
+	TransactionType SearchResultType = "tx"
 	AddressType     SearchResultType = "address"
 )
 
